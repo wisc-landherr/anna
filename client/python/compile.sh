@@ -15,7 +15,10 @@
 #  limitations under the License.
 
 cd anna
-protoc -I=../../../common/proto/ --python_out=. anna.proto shared.proto causal.proto cloudburst.proto
+PROTOBUF=~landherr/public/protobuf/install
+export LD_LIBRARY_PATH=${PROTOBUF}/lib:${LD_LIBRARY_PATH}
+export PATH=${PROTOBUF}/bin:${PATH}
+protoc -I=${ANNA_ROOT}/common/proto/ --python_out=. anna.proto shared.proto causal.proto cloudburst.proto
 
 if [[ "$OSTYPE" = "darwin"* ]]; then
   sed -i "" "s/import shared_pb2/from . import shared_pb2/g" anna_pb2.py

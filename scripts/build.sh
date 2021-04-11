@@ -67,12 +67,15 @@ if [[ -z "$COMPILER" ]]; then
   COMPILER="/usr/bin/clang++"
   RUN_FORMAT="yes"
 fi
+PROTOBUF=~landherr/public/protobuf/install
+export LD_LIBRARY_PATH=${PROTOBUF}/lib
+export PATH=${PROTOBUF}/bin:${PATH}
 
 rm -rf build
 mkdir build
 cd build
 
-cmake -std=c++11 "-GUnix Makefiles" -DCMAKE_BUILD_TYPE=$TYPE -DCMAKE_CXX_COMPILER=$COMPILER $TEST ..
+cmake -std=c++11 "-GUnix Makefiles" -DProtobuf_INSTALL_ROOT=$PROTOBUF -DCMAKE_BUILD_TYPE=$TYPE -DCMAKE_CXX_COMPILER=$COMPILER $TEST ..
 
 make -j${MAKE_THREADS}
 
