@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 #  Copyright 2019 U.C. Berkeley RISE Lab
 #
@@ -82,3 +82,6 @@ make -j${MAKE_THREADS}
 if [[ "$TYPE" = "Debug" ]] && [[ ! -z "$RUN_FORMAT" ]]; then
   make clang-format
 fi
+
+cd client/python
+ANNA_ROOT=$(pwd)/../.. pip3 install .
